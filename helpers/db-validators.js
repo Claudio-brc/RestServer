@@ -22,9 +22,24 @@ const esRolValido = async  (rol = '') => {
   }
 
 }
+
+
+const existeUsuarioID = async (id ) =>{
+  
+  const existeUsuario =  await Usuario.findById(id);
+  if (!existeUsuario){
+    throw new Error (`el ID No existe!`)
+
+   // return res.status(400).json(
+   //   {msg: 'correo ya registrado'}
+   // )
+  }
+
+}
   
 
 module.exports = {
     esRolValido,
-    existeEmail
+    existeEmail,
+    existeUsuarioID
 }  

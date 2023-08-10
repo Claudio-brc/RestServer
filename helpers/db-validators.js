@@ -10,15 +10,13 @@ const esRolValido = async  (rol = '') => {
   }
 
 
-  const existeEmail = async (correo) =>{
-  
-  await Usuario.findOne({ correo });
+  const existeEmail = async (correo = '') =>{
+   
+  const existeEmail = await Usuario.findOne({ correo });
+
   if (existeEmail){
     throw new Error (`correo ya registrado!`)
 
-   // return res.status(400).json(
-   //   {msg: 'correo ya registrado'}
-   // )
   }
 
 }

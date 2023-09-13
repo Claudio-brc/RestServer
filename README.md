@@ -23,7 +23,7 @@ If you have any questions or suggestions, please don't hesitate to contact me at
 
 # Configuración
 1. Clona este repositorio.
-2. Instala las dependencias utilizando `npm install`.
+2. Instala las dependencias utilizando `nodemon app.js`.
 3. Configura las variables de entorno necesarias, como las credenciales de la base de datos y la clave secreta para JWT en un archivo `.env`.
 4. Ejecuta la aplicación utilizando `npm start`.
 

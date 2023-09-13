@@ -10,7 +10,7 @@ This project has an academic origin and is being developed using Node.js and the
 1. Clone this repository.
 2. Install dependencies using `npm install`.
 3. Configure necessary environment variables, such as database credentials and the secret key for JWT, in a `.env` file.
-4. Run the application using `npm start`.
+4. Run the application using `nodemon app.js`.
 
 # Usage
 You can review the endpoints developed in the routers file. I am working on the documentation!

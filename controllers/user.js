@@ -73,10 +73,29 @@ const usuariosDelete = async (req, res) => {
   // Fisiciamente lo borramos
   // const usuario = await Usuario.findByIdAndDelete( id );
 
-  const usuario = await Usuario.findByIdAndUpdate(id, { estado: false} );
+  const usuario = await Usuario.findByIdAndUpdate(uid, { estado: false} );
   
+  if(!usuario) {
+    return res.status(401).json({
+      
+      msg: 'Token no válido - no existe.'
+    
+  })   
+  }
+
+  if ( !usuario.estado) {
+    return res.status(401).json({
+      
+        msg: 'Token no válido - usuario ya borrado.'
+      
+    })
+  }
+  
+  req.usuario = usuario;
+  const usuarioAutenticado = req.usuario;
+
   res.status(201).json(
-        {usuario, uid}
+        {usuario, usuarioAutenticado}
         )
   }
 

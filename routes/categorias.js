@@ -32,12 +32,6 @@ router.put('/:id',[ validarJWT,
     validarCampos
  ], categoriaPUT );
 
-/* solo admin
-router.delete('/:id', (req, res) => {
-    res.json('todo ok')
-} );
-*/
-
 
 router.delete('/:id',  [
     validarJWT,

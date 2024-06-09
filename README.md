@@ -1,4 +1,4 @@
-# WEB SERVER - REST SERVER
+# WEB SERVER - REST SERVER 
 
 This project has an academic origin and is being developed using Node.js and the MongoDB database. The main goal is to provide a web server that implements a REST API to interact with the database. Designed as a foundation for a personal project.
 

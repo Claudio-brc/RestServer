@@ -1,6 +1,8 @@
-const { response } = require('express')
+import { Response,  NextFunction } from 'express';
+import { MyRequest } from '../types';
 
-const esAdminRole = ( req, res = response, next ) =>{
+
+const esAdminRole = ( req: MyRequest, res: Response , next: NextFunction ) =>{
   
   if (!req.usuario) {
     return res.status(500).json({
@@ -19,8 +21,8 @@ const esAdminRole = ( req, res = response, next ) =>{
   next();
 }
 
-const tieneRole = (... roles) => {
-  return (req, res = response, next) => {
+const tieneRole = (... roles: string[] ) => {
+  return (req: MyRequest, res:  Response, next: NextFunction) => {
     if (!req.usuario) {
       return res.status(500).json({
           msg: 'usuario no valido1'

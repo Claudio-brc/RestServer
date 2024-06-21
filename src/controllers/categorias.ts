@@ -1,9 +1,10 @@
-const { response } = require ('express');
-const { Categoria } = require('../models');
-const  { Usuario } = require('../models/usuario');
+import  { Response }  from 'express';
+import  Categoria from '../models/categoria';
+import  Usuario   from '../models/usuario';
+import { MyRequest } from '../types';
 
 
-const obtenerCategorias = async (req = request, res = response)  => {
+const obtenerCategorias = async (req : MyRequest, res : Response)  => {
 
     // const {q, nombre = 'no_name', apikey, page, limit} = query = req.query;
     const { limite = 5, desde = 0} = req.query;
@@ -17,10 +18,10 @@ const obtenerCategorias = async (req = request, res = response)  => {
      //
     ]);
     res.json(
-         {
-          total,
-          categorias
-         }
+      {
+        total,
+        categorias
+       }
          )
    }
 
@@ -51,7 +52,7 @@ const obtenerCategoria = async (req = request, res = response)  => {
 
 
 // actualizar categoria
-const categoriaPUT = async (req, res) => {
+const categoriaPUT = async (req: MyRequest, res: Response) => {
     const { id} = req.params;
     const { estado, usuario,  ...data} = req.body;
     

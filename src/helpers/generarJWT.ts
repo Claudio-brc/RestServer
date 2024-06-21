@@ -22,6 +22,6 @@ const generarJWT = (uid = ""): Promise<string> => {
   })
 }
 
-module.exports = {
+export  {
   generarJWT,
 }

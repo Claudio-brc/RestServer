@@ -1,10 +1,18 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors    from 'cors';
 
-const { dbConnection } = require('../database/config');
+import { dbConnection } from '../database/config';
+import auth from '../routes/auth';
+import user from '../routes/user';
+import categorias from '../routes/categorias';
+
 
 
 class Server {
+    public app;
+    public port;
+    public paths;
+
     constructor () {
         this.app  = express();
         this.port = process.env.PORT;
@@ -40,9 +48,10 @@ class Server {
         }
 
     routes(){
-       this.app.use(this.paths.auth, require('../routes/auth'));   
-       this.app.use(this.paths.usuarios, require('../routes/user')); 
-       this.app.use(this.paths.categorias, require('../routes/categorias'));
+       this.app.use(this.paths.auth, auth );   
+       this.app.use(this.paths.usuarios, user ); 
+       this.app.use(this.paths.categorias, categorias );
+
     }
     
     listen () {
@@ -54,4 +63,4 @@ class Server {
 
 }
 
-module.exports = Server;
+export default Server;

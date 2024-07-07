@@ -1,6 +1,15 @@
-const { Schema, model} = require('mongoose');
+import { Schema, model} from 'mongoose';
 
-const CategoriaSchema = Schema({
+
+interface Categoria {
+  nombre:  string;
+  estado:  boolean;
+  usuario: Schema.Types.ObjectId;
+
+
+}
+
+const CategoriaSchema = new Schema({
   nombre: {
     type: String,
     required: [true, 'El nombre es obligatorio'],
@@ -18,4 +27,6 @@ const CategoriaSchema = Schema({
   }
 });
 
-module.exports = model('Categoria', CategoriaSchema)
+
+
+export default model<Categoria>('Categoria', CategoriaSchema);

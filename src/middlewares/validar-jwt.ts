@@ -38,6 +38,6 @@ const validarJWT = async (
   console.log(token)
 }
 
-module.exports = {
+export {
   validarJWT,
 }

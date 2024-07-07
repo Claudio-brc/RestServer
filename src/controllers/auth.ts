@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import Usuario from '../models/usuario';
 import bcryptjs from 'bcryptjs';
-import  { generarJWT } from '../helpers/generarJWT' 
+import { generarJWT } from '../helpers/generarJWT' 
 import { MyRequest } from '../types';
 
 const login = async (req: MyRequest, res: Response) => {
@@ -49,6 +49,4 @@ const login = async (req: MyRequest, res: Response) => {
   
 }
 
-module.exports = {
-    login
-}
+export  { login }

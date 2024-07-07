@@ -1,6 +1,8 @@
-require("dotenv").config()
-const Server = require("./src/models/server")
+import dotenv from  "dotenv";
+import Server from "./src/models/server"
 
-const server = new Server()
+dotenv.config();
+const server = new Server();
+
 
 server.listen()

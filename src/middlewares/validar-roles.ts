@@ -38,7 +38,7 @@ const tieneRole = (... roles: string[] ) => {
   }
 }
 
-module.exports = {
+export {
     esAdminRole,
     tieneRole
 }

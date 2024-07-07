@@ -1,15 +1,20 @@
-const { Router } = require ('express');
-const { usuariosGet, usuariosPut, usuariosPost, usuariosDelete} = require('../controllers/user');
-const { check } = require('express-validator');
-const Role = require('../models/rol');
+import { Router } from 'express';
+import { usuariosGet, usuariosPut, usuariosPost, usuariosDelete} from '../controllers/user';
+import { check } from'express-validator';
 //const {validarCampos} = require('../middlewares/validar-campos');
 //const {validarJWT} = require('../middlewares/validar-jwt');
-const { esRolValido, existeEmail, existeUsuarioID } = require('../helpers/db-validators');
+import { esRolValido, existeEmail, existeUsuarioID } from '../helpers/db-validators';
 //const { esAdminRole, tieneRole } = require('../middlewares/validar-roles');
 
-const {validarCampos,
+/*
+import {validarCampos,
 validarJWT,
-tieneRole} = require('../middlewares');
+tieneRole} from '../middlewares';*/
+
+import   { validarCampos }   from '../middlewares/validar-campos';
+import   { validarJWT }      from '../middlewares/validar-jwt';
+import   { tieneRole }       from '../middlewares/validar-roles';
+
 
 const router = Router();
 
@@ -40,4 +45,4 @@ router.delete('/:id',  [
   validarCampos
 ], usuariosDelete  );
 
-  module.exports = router;
+export default router;

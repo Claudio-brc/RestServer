@@ -1,5 +1,6 @@
-const Role = require("../models/rol")
-const { Usuario, Categoria } = require("../models")
+import Role from "../models/rol";
+import Usuario   from "../models/usuario";
+import Categoria from "../models/categoria";
 
 const esRolValido = async (rol = "") => {
   const existeRol = await Role.findOne({ rol })
@@ -30,7 +31,7 @@ const existeCategoriaPorId = async (id: string) => {
   }
 }
 
-module.exports = {
+export  {
   esRolValido,
   existeEmail,
   existeUsuarioID,

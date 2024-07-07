@@ -1,10 +1,11 @@
-const { response, request } = require('express');
-const bcryptjs = require('bcryptjs');
+import  { Response }  from 'express';
+import { MyRequest } from '../types';
+import  bcryptjs  from 'bcryptjs';
 
 const Usuario = require ('../models/usuario');
 
 
-const usuariosGet = async (req = request, res = response)  => {
+const usuariosGet = async (req: MyRequest, res :Response)  => {
 
    // const {q, nombre = 'no_name', apikey, page, limit} = query = req.query;
    const { limite = 5, desde = 0} = req.query;
@@ -24,7 +25,7 @@ const usuariosGet = async (req = request, res = response)  => {
         )
   }
 
-const usuariosPut = async (req, res) => {
+const usuariosPut = async (req: MyRequest, res: Response) => {
     const { id} = req.params;
     const { password, google,  ...resto} = req.body;
 
@@ -43,7 +44,7 @@ const usuariosPut = async (req, res) => {
         )
   } 
   
-const usuariosPost = async (req, res) => {
+const usuariosPost = async (req: MyRequest, res: Response) => {
 
 
     const { nombre, correo, password, rol} = req.body;
@@ -65,13 +66,8 @@ const usuariosPost = async (req, res) => {
         )
   }  
 
-const usuariosDelete = async (req, res) => {
+const usuariosDelete = async (req: MyRequest, res: Response) => {
   const { id } = req.params;  
-
-  //const uid = req.uid;
-
-  // Fisiciamente lo borramos
-  // const usuario = await Usuario.findByIdAndDelete( id );
 
   const usuario = await Usuario.findByIdAndUpdate(id, { estado: false} );
   
@@ -91,7 +87,6 @@ const usuariosDelete = async (req, res) => {
     })
   }
   
-  //req.usuario = usuario;
   const usuarioAutenticado = req.usuario;
 
   res.status(201).json(
@@ -99,7 +94,7 @@ const usuariosDelete = async (req, res) => {
         )
   }
 
-  module.exports = {
+ export {
     usuariosGet,
     usuariosPut,
     usuariosPost,

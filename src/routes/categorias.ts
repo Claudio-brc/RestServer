@@ -1,10 +1,18 @@
-const { Router } = require ('express');
-const { check } = require ('express-validator');
-const { validarJWT, validarCampos, tieneRole  } = require('../middlewares');
-const { crearCategoria } = require('../controllers/categorias');
-const { obtenerCategorias, obtenerCategoria, categoriaPUT, 
-       categoriaDelete } = require('../controllers/categorias');
-const { existeCategoriaPorId } = require('../helpers/db-validators');
+import  { Router } from 'express';
+import { check } from 'express-validator';
+
+//import { validarJWT, validarCampos, tieneRole  } from '../middlewares';
+
+import { validarJWT } from '../middlewares/validar-jwt';
+import { validarCampos } from '../middlewares/validar-campos';
+import { tieneRole } from '../middlewares/validar-roles';
+
+
+import { crearCategoria } from '../controllers/categorias';
+import { obtenerCategorias, obtenerCategoria, categoriaPUT, 
+       categoriaDelete } from '../controllers/categorias';
+import { existeCategoriaPorId } from '../helpers/db-validators';
+
 const router = Router();
 
 // all
@@ -45,4 +53,4 @@ router.delete('/:id',  [
 
 
 
-module.exports = router;
+export default router;

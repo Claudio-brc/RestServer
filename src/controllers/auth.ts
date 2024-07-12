@@ -1,9 +1,10 @@
-const { response } = require('express');
-const Usuario = require('../models/usuario');
-const bcryptjs = require ('bcryptjs');
-const { generarJWT } = require ('../helpers/generarJWT') 
+import { Response } from 'express';
+import Usuario from '../models/usuario';
+import bcryptjs from 'bcryptjs';
+import { generarJWT } from '../helpers/generarJWT' 
+import { MyRequest } from '../types';
 
-const login = async (req, res = response) => {
+const login = async (req: MyRequest, res: Response) => {
 
   const { correo, password} = req.body;
 
@@ -48,6 +49,4 @@ const login = async (req, res = response) => {
   
 }
 
-module.exports = {
-    login
-}
+export  { login }

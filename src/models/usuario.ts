@@ -1,6 +1,18 @@
-const {Schema, model} = require('mongoose');
+import {Schema, model} from 'mongoose';
+import {rol} from './rol';
 
-const UsuarioSchema = Schema({
+
+interface usuario {
+  nombre: string,
+  correo: string,
+  password: string,
+  img: string,
+  rol: Schema.Types.ObjectId,
+  estado: boolean
+}
+
+const UsuarioSchema = new Schema({
+
 
 
   nombre: {
@@ -21,17 +33,14 @@ const UsuarioSchema = Schema({
     type: String
   },
   rol: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Role',
     required: true
   },
   estado: {
     type: Boolean,
     default: true
-  },
-  estado: {
-    type: Boolean,
-    default: false
-  }  
+  }
 
 })
 
@@ -43,7 +52,7 @@ UsuarioSchema.methods.toJSON = function () {
 }
 
 
-module.exports = model( 'Usuario', UsuarioSchema)
+export default model <usuario> ( 'Usuario', UsuarioSchema)
 
 
 /*

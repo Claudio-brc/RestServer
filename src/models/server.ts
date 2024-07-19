@@ -5,6 +5,7 @@ import { dbConnection } from '../database/config';
 import auth from '../routes/auth';
 import user from '../routes/user';
 import categorias from '../routes/categorias';
+import productos from '../routes/productos';
 
 
 
@@ -21,6 +22,7 @@ class Server {
             auth:       '/api/auth',
             usuarios:   '/api/usuarios',
             categorias: '/api/categorias',
+            productos:  '/api/productos'
 
         }
 
@@ -51,6 +53,7 @@ class Server {
        this.app.use(this.paths.auth, auth );   
        this.app.use(this.paths.usuarios, user ); 
        this.app.use(this.paths.categorias, categorias );
+       this.app.use(this.paths.productos, productos );       
 
     }
     

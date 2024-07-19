@@ -1,9 +1,11 @@
-const { Router } = require ('express');
-const { check } = require ('express-validator');
-const { validarJWT, validarCampos, tieneRole  } = require('../middlewares');
-const { crearProducto, obtenerProducto, productoPUT, productoDelete } = require('../controllers/productos');
-const { obtenerProductos } = require('../controllers/productos');
-const { existeUsuarioID, existePro, existeProductoPorId } = require('../helpers/db-validators');
+import { Router } from 'express';
+import { check } from  'express-validator';
+import { validarJWT } from '../middlewares/validar-jwt';
+import {  validarCampos } from '../middlewares/validar-campos';
+import {   tieneRole  } from '../middlewares/validar-roles';
+import { crearProducto, obtenerProducto, productoPUT, productoDelete } from'../controllers/productos';
+import { obtenerProductos } from'../controllers/productos';
+import { existeProductoPorId }from '../helpers/db-validators';
 const router = Router();
 
 // all
@@ -49,7 +51,4 @@ router.delete('/:id',  [
   ], productoDelete  );
 
 
-
-
-
-module.exports = router;
+export default router;

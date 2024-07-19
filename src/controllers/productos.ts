@@ -1,11 +1,12 @@
-const { response } = require('express');
-const { Producto } = require('../models');
-const { Usuario } = require('../models');
-const { Categoria } = require('../models');
+import { Response }  from 'express';
+import Producto  from '../models/producto';
+import Usuario   from '../models/usuario';
+import Categoria from '../models/categoria';
+import { MyRequest } from '../types';
 
 
 
-const obtenerProductos = async (req = request, res = response) => {
+const obtenerProductos = async (req : MyRequest, res : Response) => {
 
   // const {q, nombre = 'no_name', apikey, page, limit} = query = req.query;
   const { limite = 5, desde = 0 } = req.query;
@@ -38,44 +39,42 @@ const obtenerProductos = async (req = request, res = response) => {
 }
 
 
-const obtenerProducto = async (req = request, res = response) => {
+const obtenerProducto = async (req:  MyRequest, res: Response) => {
 
   const { id } = req.params;
-  let producto = {};
 
   try {
-    producto = await Producto.findById(id).populate('usuario')
+    const producto = await Producto.findById(id).populate('usuario')
       .populate('categoria')
       .exec();
 
+      if (!producto) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+      }
+      res.json({ producto });
   }
   catch (error) {
-    producto = { 'error': 'no encontrado' };
+    console.error(error);
+    res.status(500).json({ error: 'Error del servidor' });
 
   }
-  res.json(
-    {
-      producto
-    }
-  )
+
 }
 
 
 // actualizar PRODUCTO
-const productoPUT = async (req, res) => {
+const productoPUT = async (req: MyRequest, res: Response) => {
   const { id } = req.params;
   
-  let producto = {};
-
   const {estado, usuario, categoria, nombre, ...data} = req.body;
 
   try  {
 
-    let vusuario = {};
-    let vcategoria = {};
-     // si undefined?
+    //let vusuario = {};
+    //let vcategoria = {};
+    // si undefined?
     if (usuario !== undefined) {
-      vusuario = await Usuario.findById(usuario); 
+      const vusuario = await Usuario.findById(usuario); 
     
       if (!vusuario) {
         return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -84,7 +83,7 @@ const productoPUT = async (req, res) => {
     }
 
     if (categoria !== undefined) {
-      vcategoria = await Categoria.findById(categoria);
+      const  vcategoria = await Categoria.findById(categoria);
       if (!vcategoria) {
         return res.status(404).json({ error: 'Categoria no encontrada' });
       }
@@ -92,34 +91,21 @@ const productoPUT = async (req, res) => {
     }
 
     data.nombre    = nombre.toUpperCase();
-
-   /* const data = {
-      nombre,
-      usuario,
-      categoria,
-      precio: req.body.precio,
-      descripcion: req.body.descripcion
-    }    */
-    
-    producto = await Producto.findByIdAndUpdate(id, data,
+  
+    let producto = await Producto.findByIdAndUpdate(id, data,
                                                { new: true });
-   
+    res.json(producto);   
   }catch (error){
-    producto = { 'error': 'no encontrado' }; } 
-
-    // imprimir mensaje del error--
-
-  res.json(producto);
+    console.error(error);
+    res.status(500).json({ error: 'Error del servidor' }); } 
 }
 
 
 
-const crearProducto = async (req, res = response) => {
+const crearProducto = async (req: MyRequest, res: Response) => {
 
   const nombre = req.body.nombre.toUpperCase();
-
-  const { usuarioId, categoriaId } = req.body;
-
+  const { usuario, categoria } = req.body;
   try {
     const productoDB = await Producto.findOne({ nombre });
 
@@ -129,13 +115,13 @@ const crearProducto = async (req, res = response) => {
       });
     }
 
-    const usuario = await Usuario.findById(usuarioId);
-    if (!usuario) {
+    const vusuario = await Usuario.findById(usuario);
+    if (!vusuario) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    const categoria = await Categoria.findById(categoriaId);
-    if (!categoria) {
+    const vcategoria = await Categoria.findById(categoria);
+    if (!vcategoria) {
       return res.status(404).json({ error: 'Categoria no encontrada' });
     }
 
@@ -153,15 +139,17 @@ const crearProducto = async (req, res = response) => {
 
     res.status(201).json(producto);
   } catch (error) {
-    res.status(500).json({ error: error.message });}
+    console.error(error);
+    res.status(500).json({ error: 'Error del servidor' }); } 
 
   }
 
 // borrar PRODUCTO
 
-const productoDelete = async (req, res) => {
-    const { id } = req.params;
-
+const productoDelete = async (req: MyRequest, res: Response) => {
+  const { id } = req.params;
+  try
+  {
     const producto = await Producto.findByIdAndUpdate(id, { disponible: false },
       { new: true });
 
@@ -170,15 +158,18 @@ const productoDelete = async (req, res) => {
         msg: 'Token no válido - no existe.'
       })
     }
-
-
     res.status(200).json(
       { producto }
     )
-  }
+  }  
+  catch(error){
+    console.error(error);
+    res.status(500).json({ error: 'Error del servidor' });  
+  }  
+}
 
 
-  module.exports = {
+  export {
     crearProducto,
     obtenerProductos,
     obtenerProducto,

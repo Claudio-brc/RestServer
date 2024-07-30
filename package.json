@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --forceExit",
-    "dev": "nodemon app.ts"
+    "dev": "nodemon src/app.ts"
   },
   "keywords": [],
   "author": "",

@@ -15,12 +15,25 @@ const buscarUsuarios = async (termino: string = '', res: Response) => {
 
     if ( esMongoId ) {
       const usuario = await Usuario.findById(termino);  
-      res.json(
+      return res.json(
         {
             results: ( usuario ) ? [usuario] : []
 
         })
     }
+    const regex = new RegExp(termino, 'i');
+
+    const usuarios = await Usuario.find({
+    
+      $or:  [{nombre: regex}, {correo: regex}],
+      $and: [ { estado: true } ]
+   
+    
+    });
+
+    res.json({
+      results: usuarios
+    })
 }
 
 const buscar = (  req: MyRequest, res: Response ) => {

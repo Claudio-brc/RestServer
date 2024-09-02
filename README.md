@@ -1,6 +1,10 @@
-# WEB SERVER - REST SERVER 
+# Service Marketplace API
+The Service Marketplace API is designed to facilitate the exchange of services between users. This platform allows service providers to list and manage their offerings, while customers can browse, search, and book services according to their needs.
 
-This project has an academic origin and is being developed using Typescript, Node.js and the MongoDB database. The main goal is to provide a web server that implements a REST API to interact with the database. Designed as a foundation for a personal project.
+The API handles key functionalities such as managing user accounts, defining roles (e.g., service providers and customers), and organizing services into categories for easier navigation. It supports CRUD operations for products (services), user management, role assignment, and category organization, providing a robust foundation for building a comprehensive service marketplace.
+
+This API is ideal for businesses and individuals looking to create a platform where services can be offered, discovered, and utilized efficiently.
+
 
 ## Key Features (under development)
 - User authentication using JSON Web Tokens (JWT).

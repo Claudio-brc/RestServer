@@ -1,7 +1,11 @@
 # Service Marketplace API
 The Service Marketplace API is designed to facilitate the exchange of services between users. This platform allows service providers to list and manage their offerings, while customers can browse, search, and book services according to their needs.
 
-The API handles key functionalities such as managing user accounts, defining roles (e.g., service providers and customers), and organizing services into categories for easier navigation. It supports CRUD operations for products (services), user management, role assignment, and category organization, providing a robust foundation for building a comprehensive service marketplace.
+The API is built using Node.js and TypeScript for a scalable and maintainable codebase. Express is utilized as the web framework, providing a robust structure for handling HTTP requests and middleware. Data is stored in a MongoDB database, enabling flexible and efficient management of service listings, user accounts, and other key entities.
+
+For security, JSON Web Tokens (JWT) are implemented to handle user authentication, ensuring that only authorized users can access specific resources and perform actions based on their roles.
+
+Key functionalities include managing user accounts, defining roles (e.g., service providers and customers), and organizing services into categories for easier navigation. The API supports CRUD operations for products (services), user management, role assignment, and category organization, providing a strong foundation for building a comprehensive service marketplace.
 
 This API is ideal for businesses and individuals looking to create a platform where services can be offered, discovered, and utilized efficiently.
 

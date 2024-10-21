@@ -1,8 +1,7 @@
 import  { Response }  from 'express';
 import { MyRequest } from '../types';
 import  bcryptjs  from 'bcryptjs';
-
-const Usuario = require ('../models/usuario');
+import Usuario  from '../models/usuario';
 
 
 const usuariosGet = async (req: MyRequest, res :Response)  => {
@@ -44,27 +43,34 @@ const usuariosPut = async (req: MyRequest, res: Response) => {
         )
   } 
   
-const usuariosPost = async (req: MyRequest, res: Response) => {
-
-
-    const { nombre, correo, password, rol} = req.body;
-    const usuario = new Usuario( {nombre, correo, password, rol} );
-    
-    // encriptar la contraseña
-    const  salt = bcryptjs.genSaltSync(10);
-    usuario.password = bcryptjs.hashSync( password, salt);
-    // guardar en DB
-
-    await usuario.save();
-
-
-    res.status(201).json(
-        {
-          msg: 'post API ', 
-          usuario
-        }
-        )
-  }  
+  const usuariosPost = async (req: MyRequest, res: Response) => {
+    try {
+      const { nombre, correo, password, rol } = req.body;
+      const usuario = new Usuario({ nombre, correo, password, rol });
+  
+      // Encriptar la contraseña
+      const salt = bcryptjs.genSaltSync(10);
+      usuario.password = bcryptjs.hashSync(password, salt);
+  
+      // Guardar en la base de datos
+      await usuario.save();
+  
+      // Respuesta exitosa
+      res.status(201).json({
+        msg: 'Usuario creado exitosamente',
+        usuario,
+      });
+    } catch (error) {
+      console.error(error);
+  
+      // Devolver un mensaje descriptivo en caso de error
+      res.status(500).json({
+        msg: 'Error al crear el usuario, por favor intente nuevamente.',
+        error: error instanceof Error ? error.message : 'Error desconocido',
+      });
+    }
+  };
+  
 
 const usuariosDelete = async (req: MyRequest, res: Response) => {
   const { id } = req.params;  

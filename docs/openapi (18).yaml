@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: API de Autenticación
+  description: API para autenticación de usuarios.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Servidor local
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Autenticación
+      summary: Iniciar sesión
+      description: Permite a un usuario iniciar sesión con su `username` y `password` y obtener un token de acceso si las credenciales son correctas.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: Nombre de usuario.
+                  example: usuario123
+                password:
+                  type: string
+                  description: Contraseña del usuario.
+                  example: password123
+      responses:
+        '200':
+          description: Inicio de sesión exitoso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usuario:
+                    $ref: '#/components/schemas/usuarioLogin'
+                  token:
+                    type: string
+                    description: Token de autenticación generado.
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTY5MTA1MDc0YjY0ZTI4OTFmYTdhMjgiLCJpYXQiOjE3MjgyMzQ1MzUsImV4cCI6MTcyODI0ODkzNX0.WAj0LP79bXhgjEC5QaPFsF3CR6_PSKzXFYZA7p0Kk5Y
+        '400':
+          description: Error en las credenciales o inicio de sesión fallido.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Usuario o contraseña incorrectos.
+
+components:
+  schemas:
+    usuarioLogin:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Nombre completo del usuario.
+          example: kkkkkk
+        correo:
+          type: string
+          description: Correo electrónico del usuario.
+          example: pepepe@test.com
+        estado:
+          type: boolean
+          description: Estado activo/inactivo del usuario.
+          example: true
+        uID:
+          type: string
+          description: Identificador único del usuario.
+          example: 6569105074b64e2891fa7a28

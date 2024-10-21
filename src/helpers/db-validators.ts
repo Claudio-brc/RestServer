@@ -1,14 +1,7 @@
-import Role from "../models/rol";
 import Usuario   from "../models/usuario";
 import Categoria from "../models/categoria";
 import Producto from "../models/producto";
 
-const esRolValido = async (rol = "") => {
-  const existeRol = await Role.findOne({ rol })
-  if (!existeRol) {
-    throw new Error(`el rol ${rol} no está registrado en la DB`)
-  }
-}
 
 const existeEmail = async (correo = "") => {
   const existeEmail = await Usuario.findOne({ correo })
@@ -43,7 +36,6 @@ const existeProductoPorId = async (id: string ) =>{
 
 
 export  {
-  esRolValido,
   existeEmail,
   existeUsuarioID,
   existeCategoriaPorId,

@@ -3,7 +3,7 @@ import { usuariosGet, usuariosPut, usuariosPost, usuariosDelete} from '../contro
 import { check } from'express-validator';
 //const {validarCampos} = require('../middlewares/validar-campos');
 //const {validarJWT} = require('../middlewares/validar-jwt');
-import { esRolValido, existeEmail, existeUsuarioID } from '../helpers/db-validators';
+import { existeEmail, existeUsuarioID } from '../helpers/db-validators';
 //const { esAdminRole, tieneRole } = require('../middlewares/validar-roles');
 
 /*
@@ -23,7 +23,6 @@ router.get('/', usuariosGet );
 router.put('/:id', [
   check('id', 'No valid ID').isMongoId(),
   check('id').custom(existeUsuarioID),
-  check('rol').custom( esRolValido ),
   validarCampos
 
 ], usuariosPut  );
@@ -32,7 +31,6 @@ router.post('/', [
   check('nombre', 'El nombre es obligatorio').not().isEmpty(),
   check('password', 'El password debe ser más de 6 letras').isLength({min:6}),
   check('correo', 'El correo no es válido').isEmail(),
-  check('rol').custom( esRolValido ), 
   check('correo').custom( existeEmail),
   validarCampos
 ], usuariosPost);

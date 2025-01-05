@@ -9,12 +9,12 @@ import {
   productoPUT,
   productoDelete,
 } from "../controllers/productos"
-import { obtenerProductos } from "../controllers/productos"
+import { getProducts } from "../controllers/productos"
 import { existeProductoPorId } from "../helpers/db-validators"
 const router = Router()
 
 // all
-router.get("/", obtenerProductos)
+router.get("/", getProducts)
 
 // one - validacion de id
 router.get(

@@ -4,16 +4,16 @@ import Usuario from "../models/usuario"
 import Categoria from "../models/categoria"
 import { MyRequest } from "../types"
 
-const obtenerProductos = async (req: MyRequest, res: Response) => {
-  // const {q, nombre = 'no_name', apikey, page, limit} = query = req.query;
-  const { limite = 5, desde = 0 } = req.query
+const getProducts = async (req: MyRequest, res: Response) => {
+
+  const { limit = 10, from = 0 } = req.query
 
   try {
-    const [total, productos] = await Promise.all([
+    const [total, products] = await Promise.all([
       Producto.countDocuments({ estado: true }),
       Producto.find({ estado: true })
-        .skip(Number(desde))
-        .limit(Number(limite))
+        .skip(Number(from))
+        .limit(Number(limit))
         .populate("usuario")
         .populate("categoria")
         .exec(),
@@ -21,7 +21,7 @@ const obtenerProductos = async (req: MyRequest, res: Response) => {
     ])
     res.json({
       total,
-      productos,
+      products,
     })
   } catch (error) {
     console.error(error)
@@ -153,7 +153,7 @@ const productoDelete = async (req: MyRequest, res: Response) => {
 
 export {
   crearProducto,
-  obtenerProductos,
+  getProducts,
   obtenerProducto,
   productoPUT,
   productoDelete,
